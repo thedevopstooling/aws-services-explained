@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>AWS Services Explained — TheDevOpsTooling</title>
+  <meta name="description" content="Visual, practical AWS tutorials — EC2, S3, IAM, VPC. Short guides with diagrams and Terraform examples from TheDevOpsTooling.com." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="canonical" href="https://thedevopstooling.com/aws-services-explained/" />
+  <meta property="og:site_name" content="TheDevOpsTooling — AWS Services Explained" />
+  <meta property="og:title" content="AWS Services Explained — Visual & Practical Guides" />
+  <meta property="og:description" content="Visual, practical AWS tutorials — EC2, S3, IAM, VPC. Diagrams and Terraform examples." />
+  <meta property="og:image" content="https://thedevopstooling.com/wp-content/uploads/2025/11/aws-services-explained-share.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    :root{
+      --bg:#0C1A2B; --panel:#071123; --accent:#00D9F5; --muted:#A0AEC0; --heading:#F8F9FC;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--heading)}
+    .wrap{max-width:980px;margin:28px auto;padding:20px}
+    header{display:flex;align-items:center;gap:16px}
+    .logo{width:58px;height:58px;border-radius:10px;background:linear-gradient(90deg,#0b2a3b,#002f44);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent)}
+    h1{margin:0;font-size:26px}
+    p.lead{margin:6px 0 18px;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+    .card{background:var(--panel);padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .card h3{margin:0 0 8px;font-size:18px}
+    .card p{margin:0 0 12px;color:var(--muted);font-size:14px}
+    .card a.cta{display:inline-block;padding:8px 12px;border-radius:8px;background:transparent;border:1px solid rgba(0,217,245,0.12);color:var(--accent);text-decoration:none;font-weight:600}
+    footer{margin-top:28px;color:var(--muted);font-size:13px}
+    .tag{display:inline-block;padding:4px 8px;border-radius:6px;font-size:12px;background:rgba(42,101,245,0.08);color:#2A65F5;margin-right:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">DT</div>
+      <div>
+        <h1>AWS Services Explained</h1>
+        <p class="lead">Visual & practical AWS tutorials — by <a href="https://thedevopstooling.com" style="color:var(--accent);text-decoration:none">TheDevOpsTooling.com</a></p>
+      </div>
+    </header>
+
+    <main>
+      <section style="margin-top:18px">
+        <div class="grid">
+          <article class="card">
+            <div class="tag">EC2</div>
+            <h3><a href="./aws-ec2-security-groups/" style="color:inherit;text-decoration:none">EC2 Security Groups — Inbound & Outbound</a></h3>
+            <p>Understand instance-level traffic filtering, stateful rules, SG vs NACL, and Terraform examples.</p>
+            <a class="cta" href="./aws-ec2-security-groups/">Open guide →</a>
+          </article>
+
+          <article class="card">
+            <div class="tag">S3</div>
+            <h3><a href="./s3-storage-classes/" style="color:inherit;text-decoration:none">S3 Storage Classes — Costs & Lifecycle</a></h3>
+            <p>Compare S3 tiers, lifecycle rules, and best practices for backups and archival.</p>
+            <a class="cta" href="./s3-storage-classes/">Open guide →</a>
+          </article>
+
+          <article class="card">
+            <div class="tag">IAM</div>
+            <h3><a href="./iam-basics/" style="color:inherit;text-decoration:none">IAM Basics — Policies & Roles</a></h3>
+            <p>Principle of least privilege, inline vs managed policies, and role trusts for services.</p>
+            <a class="cta" href="./iam-basics/">Open guide →</a>
+          </article>
+
+          <article class="card">
+            <div class="tag">VPC</div>
+            <h3><a href="./vpc-architecture/" style="color:inherit;text-decoration:none">VPC Architecture — Subnets & Routing</a></h3>
+            <p>Design public/private subnets, NAT, routing, and network best practices for production.</p>
+            <a class="cta" href="./vpc-architecture/">Open guide →</a>
+          </article>
+
+          <article class="card">
+            <div class="tag">Lambda</div>
+            <h3><a href="./lambda-overview/" style="color:inherit;text-decoration:none">Lambda Overview — Serverless Patterns</a></h3>
+            <p>When to use Lambda vs containers, cold starts, concurrency, and observability tips.</p>
+            <a class="cta" href="./lambda-overview/">Open guide →</a>
+          </article>
+
+          <article class="card">
+            <div class="tag">RDS</div>
+            <h3><a href="./rds-basics/" style="color:inherit;text-decoration:none">RDS Basics — Backups & High Availability</a></h3>
+            <p>Multi-AZ, read replicas, backup strategies, and connection best practices.</p>
+            <a class="cta" href="./rds-basics/">Open guide →</a>
+          </article>
+
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© TheDevOpsTooling — Srikanth Chowdari • <a href="https://thedevopstooling.com" style="color:var(--accent)">thedevopstooling.com</a></p>
+    </footer>
+  </div>
+</body>
+</html>
