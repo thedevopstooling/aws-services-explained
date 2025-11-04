@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>AWS EC2 Security Groups Explained — TheDevOpsTooling</title>
+  <meta name="description" content="Visual guide: AWS EC2 Security Groups — inbound & outbound flow, Security Groups vs Network ACLs, and Terraform examples." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- canonical: point to original blog post -->
+  <link rel="canonical" href="https://thedevopstooling.com/aws-ec2-security-groups-explained/" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="AWS EC2 Security Groups Explained" />
+  <meta property="og:description" content="Visual guide: AWS EC2 Security Groups — inbound & outbound flow, Security Groups vs Network ACLs, and Terraform examples." />
+  <meta property="og:image" content="https://thedevopstooling.com/wp-content/uploads/2025/11/aws-security-group-vs-nacl-diagram.png" />
+  <meta property="og:url" content="https://thedevopstooling.github.io/aws-services-explained/aws-ec2-security-groups/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- JSON-LD Article schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://thedevopstooling.com/aws-ec2-security-groups-explained/"
+    },
+    "headline": "AWS EC2 Security Groups Explained",
+    "description": "Visual guide: AWS EC2 Security Groups — inbound & outbound flow, Security Groups vs Network ACLs, and Terraform examples.",
+    "image": "https://thedevopstooling.com/wp-content/uploads/2025/11/aws-security-group-vs-nacl-diagram.png",
+    "author": {
+      "@type": "Person",
+      "name": "Srikanth Chowdari",
+      "url": "https://thedevopstooling.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "TheDevOpsTooling",
+      "url": "https://thedevopstooling.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thedevopstooling.com/wp-content/uploads/2025/10/thedevopstooling-logo.png"
+      }
+    },
+    "datePublished": "2025-11-04",
+    "dateModified": "2025-11-04"
+  }
+  </script>
+
+  <style>
+    :root{--bg:#0C1A2B;--panel:#071123;--accent:#00D9F5;--muted:#A0AEC0;--txt:#F8F9FC}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--txt)}
+    .wrap{max-width:900px;margin:28px auto;padding:20px}
+    a{color:var(--accent)}
+    header h1{margin:0;font-size:26px}
+    .meta{color:var(--muted);margin-top:6px;font-size:14px}
+    article{background:var(--panel);padding:18px;border-radius:10px;margin-top:16px}
+    img.diagram{max-width:100%;height:auto;border-radius:8px;display:block;margin:12px 0}
+    pre.code{background:#031523;padding:12px;border-radius:8px;overflow:auto;color:#dbeafe}
+    .nav{margin-top:16px}
+    .nav a{margin-right:12px;color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>AWS EC2 Security Groups Explained 🔐</h1>
+      <div class="meta">Visual guide & Terraform examples • <a href="https://thedevopstooling.com/aws-ec2-security-groups-explained/">Read original blog post</a></div>
+    </header>
+
+    <article>
+      <h2>Overview</h2>
+      <p>Security Groups act as instance-level virtual firewalls. This guide explains inbound vs outbound flows, differences between Security Groups and Network ACLs, and includes a production-ready Terraform example for a three-tier architecture.</p>
+
+      <h3>Inbound & Outbound Traffic Flow</h3>
+      <img class="diagram" src="./images/inbound-outbound-flow.png" alt="Inbound and Outbound traffic flow for AWS Security Groups" />
+      <p><strong>Diagram:</strong> how security group rules are evaluated for inbound and outbound packets.</p>
+
+      <h3>Security Groups vs Network ACLs</h3>
+      <img class="diagram" src="./images/sg-vs-nacl.png" alt="Security Groups vs Network ACLs — instance vs subnet level" />
+      <p>Security Groups: instance-level and <strong>stateful</strong>. Network ACLs: subnet-level and <strong>stateless</strong>. Use NACLs for coarse filtering at subnet boundary and SGs for instance-specific controls.</p>
+
+      <h3>Terraform Example (three-tier)</h3>
+      <pre class="code"><code>resource "aws_security_group" "web_tier" {
+  name        = "web-tier-sg"
+  description = "Security group for web tier - allows public HTTP/HTTPS"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "HTTP from public internet"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "HTTPS from public internet"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description     = "SSH from bastion host"
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = [aws_security_group.bastion.id]
+  }
+
+  egress {
+    description = "Allow all outbound"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}</code></pre>
+
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li>Use least privilege — only open necessary ports and sources.</li>
+        <li>Prefer SSM Session Manager over opening SSH to internet.</li>
+        <li>Use prefix lists for AWS service endpoints when possible.</li>
+      </ul>
+
+      <p>Full tutorial & deeper explanations: <a href="https://thedevopstooling.com/aws-ec2-security-groups-explained/">https://thedevopstooling.com/aws-ec2-security-groups-explained/</a></p>
+
+      <div class="nav">
+        <a href="../">← Back to AWS Services Explained</a>
+        <a href="https://thedevopstooling.com" target="_blank" rel="noopener noreferrer">Visit TheDevOpsTooling.com →</a>
+      </div>
+    </article>
+
+    <footer style="margin-top:20px;color:var(--muted);font-size:13px">
+      © TheDevOpsTooling — Srikanth Chowdari
+    </footer>
+  </div>
+</body>
+</html>
