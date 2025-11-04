@@ -67,5 +67,5 @@ More guides at [TheDevOpsTooling.com](https://thedevopstooling.com)
 ---
 
 ### ✍️ Author
-**Srikanth Chowdari** — Senior DevOps Engineer  
+**Srikanth Ch** — Senior DevOps Engineer  
 Follow for more AWS & DevOps tutorials: [@thedevopstooling](https://github.com/thedevopstooling)
